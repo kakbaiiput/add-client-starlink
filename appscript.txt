@@ -1878,6 +1878,12 @@ function submitClientData(clientData) {
       ''                                        // Y: Tombol WhatsApp ✅ MOVED
     ];
     
+    // ✅ FIX: Hapus data validation di baris baru sebelum menulis data.
+    // Jika kolom O (STATUS) memiliki data validation mode "Reject input",
+    // setValues() akan gagal mulai dari kolom O sehingga O-Y tidak tertulis.
+    // clearDataValidations() memastikan penulisan tidak diblokir validasi.
+    targetSheet.getRange(newRow, 1, 1, 25).clearDataValidations();
+
     // Insert data ke sheet (kolom A sampai Y = 25 kolom)
     targetSheet.getRange(newRow, 1, 1, 25).setValues([rowData]);
     
